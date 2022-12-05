@@ -19,7 +19,7 @@ async function bootstrap() {
     })
   )
   app.useLogger(app.get<MyLogger>(MyLogger))
-  await app.listen(8080)
+  await app.listen(3001)
 }
 
 bootstrap()
