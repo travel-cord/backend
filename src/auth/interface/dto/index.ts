@@ -1,5 +1,5 @@
-import { GoogleRequestDto } from './google.request.dto'
-import { NaverRequestDto } from './naver.request.dto'
-import { KakaoRequestDto } from './kakao.request.dto'
+import { GoogleUserDto } from '@auth/interface/dto/google.user.dto'
+import { NaverUserDto } from '@auth/interface/dto/naver.user.dto'
+import { KakaoUserDto } from '@auth/interface/dto/kakao.user.dto'
 
-export { GoogleRequestDto, NaverRequestDto, KakaoRequestDto }
+export { GoogleUserDto, NaverUserDto, KakaoUserDto }

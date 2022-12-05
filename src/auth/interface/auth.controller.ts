@@ -1,12 +1,13 @@
-import { Controller, Get, HttpStatus, Logger, NotAcceptableException, Req, Res, UseGuards } from '@nestjs/common'
+import { Controller, Get, HttpStatus, Req, Res, UseGuards } from '@nestjs/common'
 import { CommandBus, QueryBus } from '@nestjs/cqrs'
-import { KakaoRequestDto, NaverRequestDto, GoogleRequestDto } from './dto'
-import { GoogleGuard, KakaoGuard, NaverGuard } from './guards'
+import { GoogleGuard, KakaoGuard, NaverGuard } from '@auth/interface/guards'
+import { MyLogger } from '@config/logger.config'
+import { Request, Response } from 'express'
 
 @Controller('auth')
 export class AuthController {
   constructor(
-    private readonly logger: Logger,
+    private readonly logger: MyLogger,
     private readonly command: CommandBus,
     private readonly query: QueryBus
   ) {}
@@ -19,12 +20,9 @@ export class AuthController {
 
   @Get('kakao/callback')
   @UseGuards(KakaoGuard)
-  public async kakaoCallBack(@Req() request: KakaoRequestDto, @Res() response) {
-    this.logger.verbose(request)
-    if (!request) {
-      throw new NotAcceptableException('not kakao user')
-    }
-    return response.direction('/')
+  public async kakaoCallBack(@Req() request: Request, @Res() response: Response) {
+    this.logger.verbose(request.user)
+    return response.redirect('http://localhost:3000')
   }
 
   @Get('naver')
@@ -35,12 +33,9 @@ export class AuthController {
 
   @Get('naver/callback')
   @UseGuards(NaverGuard)
-  public async naverCallBack(@Req() request: NaverRequestDto, @Res() response) {
-    this.logger.verbose(request)
-    if (!request) {
-      throw new NotAcceptableException('not naver user')
-    }
-    return response.direction('/')
+  public async naverCallBack(@Req() request: Request, @Res() response: Response) {
+    this.logger.verbose(request.user)
+    return response.redirect('http://localhost:3000')
   }
 
   @Get('google')
@@ -51,11 +46,8 @@ export class AuthController {
 
   @Get('google/callback')
   @UseGuards(GoogleGuard)
-  public async googleCallBack(@Req() request: GoogleRequestDto, @Res() response) {
-    this.logger.verbose(request)
-    if (!request) {
-      throw new NotAcceptableException('not google user')
-    }
-    return response.direction('/')
+  public async googleCallBack(@Req() request: Request, @Res() response: Response) {
+    this.logger.verbose(request.user)
+    return response.redirect('http://localhost:3000')
   }
 }

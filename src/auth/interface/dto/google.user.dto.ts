@@ -1,9 +1,17 @@
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator'
+import { IsEmail, IsNotEmpty, IsNumberString, IsString } from 'class-validator'
 
-export class GoogleRequestDto {
+export class GoogleUserDto {
   @IsString()
   @IsNotEmpty()
-  readonly id: string
+  readonly accessToken: string
+
+  @IsString()
+  @IsNotEmpty()
+  readonly refreshToken: string
+
+  @IsNumberString()
+  @IsNotEmpty()
+  readonly id: string | number
 
   @IsString()
   @IsNotEmpty()
@@ -11,4 +19,16 @@ export class GoogleRequestDto {
 
   @IsEmail()
   readonly email?: string
+
+  @IsString()
+  readonly birthday?: string
+
+  @IsString()
+  readonly gender?: string
+
+  @IsString()
+  readonly age?: string
+
+  @IsString()
+  readonly profileImg?: string
 }

@@ -1,9 +1,17 @@
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator'
+import { IsEmail, IsNotEmpty, IsNumberString, IsString } from 'class-validator'
 
-export class KakaoRequestDto {
+export class KakaoUserDto {
   @IsString()
   @IsNotEmpty()
-  readonly id: string
+  readonly accessToken: string
+
+  @IsString()
+  @IsNotEmpty()
+  readonly refreshToken: string
+
+  @IsNumberString()
+  @IsNotEmpty()
+  readonly id: string | number
 
   @IsString()
   @IsNotEmpty()
