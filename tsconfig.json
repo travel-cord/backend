@@ -19,6 +19,9 @@
       ],
       "@config/*": [
         "./config/*"
+      ],
+      "@auth/*": [
+        "./auth/*"
       ]
     },
     "incremental": true,
