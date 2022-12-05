@@ -2,8 +2,7 @@ import { Injectable, NotAcceptableException } from '@nestjs/common'
 import { PassportStrategy } from '@nestjs/passport'
 import { ConfigService } from '@nestjs/config'
 import { Profile, Strategy, VerifyCallback } from 'passport-google-oauth20'
-import { request } from 'express'
-import { GoogleUserDto, NaverUserDto } from '@auth/interface/dto'
+import { GoogleUserDto } from '@auth/interface/dto'
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {

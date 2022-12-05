@@ -1,16 +1,11 @@
 import { Controller, Get, HttpStatus, Req, Res, UseGuards } from '@nestjs/common'
-import { CommandBus, QueryBus } from '@nestjs/cqrs'
 import { GoogleGuard, KakaoGuard, NaverGuard } from '@auth/interface/guards'
 import { MyLogger } from '@config/logger.config'
 import { Request, Response } from 'express'
 
 @Controller('auth')
 export class AuthController {
-  constructor(
-    private readonly logger: MyLogger,
-    private readonly command: CommandBus,
-    private readonly query: QueryBus
-  ) {}
+  constructor(private readonly logger: MyLogger) {}
 
   @Get('kakao')
   @UseGuards(KakaoGuard)
