@@ -1,7 +1,7 @@
 import { Global, Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { databaseConfig } from '@config/database.config'
+import { database2Config, database3Config, databaseConfig } from '@config/database.config'
 import { ScheduleModule } from '@nestjs/schedule'
 import { TerminusModule } from '@nestjs/terminus'
 import { HttpModule } from '@nestjs/axios'
@@ -15,6 +15,8 @@ import { MyLogger } from '@config/logger.config'
       envFilePath: process.env.NODE_ENV === 'prod' ? '.env.prod' : '.env.dev'
     }),
     TypeOrmModule.forRootAsync(databaseConfig),
+    TypeOrmModule.forRootAsync(database2Config),
+    TypeOrmModule.forRootAsync(database3Config),
     ScheduleModule.forRoot(),
     TerminusModule,
     HttpModule
