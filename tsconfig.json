@@ -22,6 +22,9 @@
       ],
       "@auth/*": [
         "./auth/*"
+      ],
+      "@user/*": [
+        "./user/*"
       ]
     },
     "incremental": true,
