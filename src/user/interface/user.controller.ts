@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common'
+import { Controller, Get, Body, Patch, Param, Delete } from '@nestjs/common'
 import { UpdateUserDto } from '@user/interface/dto/update-user.dto'
 import { MyLogger } from '@config/logger.config'
 
