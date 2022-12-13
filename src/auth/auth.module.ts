@@ -5,7 +5,6 @@ import { JwtModule } from '@nestjs/jwt'
 import { AuthController } from '@auth/interface/auth.controller'
 import { GoogleStrategy, KakaoStrategy, NaverStrategy } from '@auth/interface/strategies'
 import { ConfigModule } from '@nestjs/config'
-import { CustomConfigModule } from '@config/config.module'
 
 const strategies = [GoogleStrategy, KakaoStrategy, NaverStrategy]
 
@@ -14,7 +13,6 @@ const strategies = [GoogleStrategy, KakaoStrategy, NaverStrategy]
     CqrsModule,
     ConfigModule,
     PassportModule,
-    CustomConfigModule,
     JwtModule.register({
       secret: 'fds',
       signOptions: { expiresIn: '24h' }
