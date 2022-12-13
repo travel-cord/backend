@@ -1,5 +1,4 @@
 import { NestFactory } from '@nestjs/core'
-import { CorsConfig } from '@config/cors.config'
 import { AppModule } from './app.module'
 import { ValidationPipe } from '@nestjs/common'
 
@@ -8,7 +7,6 @@ async function bootstrap() {
     bufferLogs: true,
     logger: process.env.NODE_ENV === 'prod' ? ['error', 'warn', 'log'] : ['debug', 'error', 'log', 'verbose', 'warn']
   })
-  app.enableCors(CorsConfig)
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true, // 변환 허용
