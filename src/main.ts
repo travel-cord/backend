@@ -5,10 +5,7 @@ import { ValidationPipe } from '@nestjs/common'
 import { MyLogger } from '@config/logger.config'
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {
-    bufferLogs: true,
-    logger: process.env.NODE_ENV === 'prod' ? ['error', 'warn', 'log'] : ['debug', 'error', 'log', 'verbose', 'warn']
-  })
+  const app = await NestFactory.create(AppModule)
   app.enableCors(CorsConfig)
   app.useGlobalPipes(
     new ValidationPipe({
