@@ -1,11 +1,11 @@
 import { NestFactory } from '@nestjs/core'
 import { AppModule } from './app.module'
 import { ValidationPipe } from '@nestjs/common'
+import { winstonLogger } from '@utils/winston.util'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
-    bufferLogs: true,
-    logger: process.env.NODE_ENV === 'prod' ? ['error', 'warn', 'log'] : ['debug', 'error', 'log', 'verbose', 'warn']
+    logger: winstonLogger
   })
   app.useGlobalPipes(
     new ValidationPipe({

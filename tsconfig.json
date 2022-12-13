@@ -25,6 +25,12 @@
       ],
       "@user/*": [
         "./user/*"
+      ],
+      "@utils/*": [
+        "./utils/*"
+      ],
+      "@middleware/*": [
+        "./middleware/*"
       ]
     },
     "incremental": true,

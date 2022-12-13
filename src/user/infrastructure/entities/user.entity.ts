@@ -1,29 +1,29 @@
 import { BaseEntity } from '@user/infrastructure/entities/base.entity'
 import { Column, Entity, PrimaryColumn } from 'typeorm'
 
-@Entity()
+@Entity('user')
 export class UserEntity extends BaseEntity {
   @PrimaryColumn({ type: 'binary', length: 16 })
   seq: Buffer
 
-  @Column()
+  @Column({ type: 'varchar' })
   id: string | number
 
-  @Column()
+  @Column({ type: 'varchar' })
   name: string
 
-  @Column({ nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   email?: string
 
-  @Column({ nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   birthday?: string
 
-  @Column({ nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   gender?: string
 
-  @Column({ nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   age?: string
 
-  @Column({ nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   profileImg?: string
 }
