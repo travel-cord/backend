@@ -1,10 +1,9 @@
-import { Controller, Get, Body, Patch, Param, Delete } from '@nestjs/common'
+import { Controller, Get, Body, Patch, Param, Delete, Logger } from '@nestjs/common'
 import { UpdateUserDto } from '@user/interface/dto/update-user.dto'
-import { MyLogger } from '@config/logger.config'
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly logger: MyLogger) {}
+  constructor(private readonly logger: Logger) {}
 
   @Get()
   findAll() {

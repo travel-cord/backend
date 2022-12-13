@@ -1,7 +1,6 @@
 import { Logger, Module } from '@nestjs/common'
 import { UserController } from '@user/interface/user.controller'
 import { CqrsModule } from '@nestjs/cqrs'
-import { CustomConfigModule } from '@config/config.module'
 import { UserCommandRepositoryImpl } from '@user/infrastructure/user.command.repository.impl'
 import { UserQueryRepositoryImpl } from '@user/infrastructure/user.query.repository.impl'
 import { UserFactory } from '@user/domain/user.factory'
@@ -16,7 +15,7 @@ const repositories = [
 const factories = [UserFactory]
 
 @Module({
-  imports: [CqrsModule, CustomConfigModule, TypeOrmModule.forFeature([UserEntity], 'MEMBER')],
+  imports: [CqrsModule, TypeOrmModule.forFeature([UserEntity])],
   controllers: [UserController],
   providers: [Logger, ...repositories, ...factories]
 })

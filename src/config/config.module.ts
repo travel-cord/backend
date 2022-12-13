@@ -6,7 +6,6 @@ import { ScheduleModule } from '@nestjs/schedule'
 import { TerminusModule } from '@nestjs/terminus'
 import { HttpModule } from '@nestjs/axios'
 import { HealthCheckController } from '../health-check/health-check.controller'
-import { MyLogger } from '@config/logger.config'
 
 @Global()
 @Module({
@@ -20,8 +19,8 @@ import { MyLogger } from '@config/logger.config'
     TerminusModule,
     HttpModule
   ],
-  providers: [MyLogger],
+  providers: [],
   controllers: [HealthCheckController],
-  exports: [MyLogger]
+  exports: []
 })
 export class CustomConfigModule {}

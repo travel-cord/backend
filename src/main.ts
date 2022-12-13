@@ -2,7 +2,6 @@ import { NestFactory } from '@nestjs/core'
 import { CorsConfig } from '@config/cors.config'
 import { AppModule } from './app.module'
 import { ValidationPipe } from '@nestjs/common'
-import { MyLogger } from '@config/logger.config'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -18,7 +17,6 @@ async function bootstrap() {
       skipMissingProperties: true // null, undefined 값을 가진 객체는 유효성 검사를 건너뜀
     })
   )
-  app.useLogger(app.get<MyLogger>(MyLogger))
   await app.listen(3001)
 }
 
