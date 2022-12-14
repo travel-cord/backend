@@ -6,10 +6,13 @@ import { UserQueryRepositoryImpl } from '@user/infrastructure/user.query.reposit
 import { UserFactory } from '@user/domain/user.factory'
 import { UserEntity } from '@user/infrastructure/entities/user.entity'
 import { TypeOrmModule } from '@nestjs/typeorm'
+import { CreateUserHandler } from '@user/application/command/create-user.handler'
+
+const commandHandler = [CreateUserHandler]
 
 const repositories = [
-  { provide: 'UserCommandRepositoryImpl', useClass: UserCommandRepositoryImpl },
-  { provide: 'UserQueryRepositoryImpl', useClass: UserQueryRepositoryImpl }
+  { provide: 'UserCommandRepository', useClass: UserCommandRepositoryImpl },
+  { provide: 'UserQueryRepository', useClass: UserQueryRepositoryImpl }
 ]
 
 const factories = [UserFactory]
@@ -17,6 +20,6 @@ const factories = [UserFactory]
 @Module({
   imports: [CqrsModule, TypeOrmModule.forFeature([UserEntity])],
   controllers: [UserController],
-  providers: [Logger, ...repositories, ...factories]
+  providers: [Logger, ...repositories, ...factories, ...commandHandler]
 })
 export class UserModule {}
