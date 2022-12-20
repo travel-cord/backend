@@ -1,7 +1,8 @@
-import { Controller, Get, HttpStatus, Logger, Req, Res, UseGuards } from '@nestjs/common'
+import { Controller, Get, HttpStatus, Inject, Logger, Req, Res, UseGuards } from '@nestjs/common'
 import { GoogleGuard, KakaoGuard, NaverGuard } from '@auth/interface/guards'
 import { Request, Response } from 'express'
 import { CommandBus } from '@nestjs/cqrs'
+import { CreateUserCommand } from '@user/application/command/create-user.command'
 
 @Controller('auth')
 export class AuthController {
@@ -15,8 +16,16 @@ export class AuthController {
 
   @Get('kakao/callback')
   @UseGuards(KakaoGuard)
-  kakaoCallBack(@Req() request: Request, @Res() response: Response) {
+  kakaoCallBack(@Req() request, @Res() response: Response) {
     this.logger.verbose(request.user)
+
+    const { id, name, email, birthday, gender, age, profileImg } = request.user
+
+    const command = new CreateUserCommand(id, name, email, birthday, age, gender, profileImg)
+    const result = this.commandBus.execute(command)
+
+    this.logger.debug(result)
+
     return response.redirect('http://localhost:3000')
   }
 

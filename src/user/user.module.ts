@@ -20,6 +20,7 @@ const factories = [UserFactory]
 @Module({
   imports: [CqrsModule, TypeOrmModule.forFeature([UserEntity])],
   controllers: [UserController],
-  providers: [Logger, ...repositories, ...factories, ...commandHandler]
+  providers: [Logger, ...repositories, ...factories, ...commandHandler],
+  exports: [...commandHandler]
 })
 export class UserModule {}
