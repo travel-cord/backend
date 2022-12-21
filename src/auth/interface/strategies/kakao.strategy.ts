@@ -22,7 +22,7 @@ export class KakaoStrategy extends PassportStrategy(Strategy, 'kakao') {
       accessToken,
       refreshToken,
       id: user.id,
-      name: user.properties.name,
+      name: user.properties.nickname,
       profileImg: user.properties.profile_image,
       age: user.kakao_account.has_age ? user.kakao_account.age : 'DENIED',
       email: user.kakao_account.has_email ? user.kakao_account.email : 'DENIED',

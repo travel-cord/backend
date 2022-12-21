@@ -1,8 +1,9 @@
-import { Controller, Get, HttpStatus, Inject, Logger, Req, Res, UseGuards } from '@nestjs/common'
+import { Controller, Get, HttpStatus, Logger, Req, Res, UseGuards } from '@nestjs/common'
 import { GoogleGuard, KakaoGuard, NaverGuard } from '@auth/interface/guards'
 import { Request, Response } from 'express'
 import { CommandBus } from '@nestjs/cqrs'
 import { CreateUserCommand } from '@user/application/command/create-user.command'
+import { User } from '@user/domain/user'
 
 @Controller('auth')
 export class AuthController {
@@ -24,8 +25,6 @@ export class AuthController {
     const command = new CreateUserCommand(id, name, email, birthday, age, gender, profileImg)
     const result = this.commandBus.execute(command)
 
-    this.logger.debug(result)
-
     return response.redirect('http://localhost:3000')
   }
 
@@ -38,7 +37,7 @@ export class AuthController {
   @Get('naver/callback')
   @UseGuards(NaverGuard)
   naverCallBack(@Req() request: Request, @Res() response: Response) {
-    this.logger.verbose(request.user)
+    this.logger.verbose(request.user, 'naver.user.dto')
     return response.redirect('http://localhost:3000')
   }
 

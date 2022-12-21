@@ -1,10 +1,10 @@
 import { BaseEntity } from '@user/infrastructure/entities/base.entity'
-import { Column, Entity, PrimaryColumn } from 'typeorm'
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
-@Entity('user')
+@Entity('user', { database: 'MEMBER' })
 export class UserEntity extends BaseEntity {
-  @PrimaryColumn({ type: 'binary', length: 16 })
-  seq: Buffer
+  @PrimaryGeneratedColumn('uuid')
+  seq: string
 
   @Column({ type: 'varchar' })
   id: string | number
