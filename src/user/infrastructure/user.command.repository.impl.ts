@@ -13,25 +13,19 @@ export class UserCommandRepositoryImpl implements UserCommandRepository {
   ) {}
 
   async save(user: User): Promise<any> {
-    const queryRunner = this.connection.createQueryRunner()
-    await queryRunner.connect()
-    await queryRunner.startTransaction()
-
-    try {
+    await this.connection.manager.transaction('SERIALIZABLE', async (transactionalEntityManager) => {
       const userEntity = this.userRepository.create({ ...user })
-      await this.userRepository.save(userEntity)
-      await queryRunner.commitTransaction()
-    } catch (error) {
-      this.logger.error(error, error.stack, 'db-error')
-      await queryRunner.rollbackTransaction()
-    } finally {
-      await queryRunner.release()
-    }
+      this.logger.debug(userEntity, UserCommandRepositoryImpl.name)
+
+      const result = await transactionalEntityManager.save(userEntity)
+      this.logger.debug(result, UserCommandRepositoryImpl)
+    })
     // await this.connection.transaction(async (manager) => {
     //   await manager.save(user)
     // })
+    // const userEntity = this.userRepository.create({ ...user })
+    // await this.userRepository.save(userEntity)
   }
-
   updateUser(user: User): Promise<User> {
     return Promise.resolve(user)
   }

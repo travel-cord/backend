@@ -1,8 +1,7 @@
-import { AfterInsert, CreateDateColumn, DeleteDateColumn, Entity, UpdateDateColumn, VersionColumn } from 'typeorm'
+import { CreateDateColumn, DeleteDateColumn, UpdateDateColumn, VersionColumn } from 'typeorm'
 
 export class BaseEntity {
   @CreateDateColumn()
-  @AfterInsert()
   createAt: Date
 
   @UpdateDateColumn()

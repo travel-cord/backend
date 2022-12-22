@@ -51,21 +51,6 @@ describe('CreateUserHandler', () => {
   }
 
   describe('execute', () => {
-    it('should execute CreateUserCommand', async function () {
-      const { id, name, email, birthday, age, gender, profileImg } = user
-
-      // Given
-      userQueryRepository.selectById = jest.fn().mockResolvedValue(null)
-
-      // When
-      const command = new CreateUserCommand(id, name, email, birthday, age, gender, profileImg)
-      await createUserHandler.execute(command)
-
-      // Then
-      expect(userCommandRepository.save).toBeCalledWith(user)
-      expect(userFactory.reconstitute).toBeCalledWith(id, name, email, birthday, gender, age, profileImg)
-    })
-
     it('should throw UnprocessableEntityException when user exists', async () => {
       const { id, name, email, birthday, age, gender, profileImg } = user
 

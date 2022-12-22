@@ -3,7 +3,6 @@ import { GoogleGuard, KakaoGuard, NaverGuard } from '@auth/interface/guards'
 import { Request, Response } from 'express'
 import { CommandBus } from '@nestjs/cqrs'
 import { CreateUserCommand } from '@user/application/command/create-user.command'
-import { User } from '@user/domain/user'
 
 @Controller('auth')
 export class AuthController {
@@ -18,7 +17,7 @@ export class AuthController {
   @Get('kakao/callback')
   @UseGuards(KakaoGuard)
   kakaoCallBack(@Req() request, @Res() response: Response) {
-    this.logger.verbose(request.user)
+    this.logger.verbose(request.user, AuthController.name)
 
     const { id, name, email, birthday, gender, age, profileImg } = request.user
 
