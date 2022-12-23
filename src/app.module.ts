@@ -4,6 +4,7 @@ import { UserModule } from '@user/user.module'
 import { LoggerMiddleware } from '@common/middleware/logger.middleware'
 import { DatabaseModule } from '@common/config/database.module'
 import { ConfigModule } from '@nestjs/config'
+import { ExceptionModule } from '@common/config/exception.module'
 
 @Module({
   imports: [
@@ -13,7 +14,8 @@ import { ConfigModule } from '@nestjs/config'
     }),
     AuthModule,
     UserModule,
-    DatabaseModule
+    DatabaseModule,
+    ExceptionModule
   ],
   providers: [Logger]
 })
