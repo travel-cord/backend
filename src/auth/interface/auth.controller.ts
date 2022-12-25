@@ -3,28 +3,31 @@ import { GoogleGuard, KakaoGuard, NaverGuard } from '@auth/interface/guards'
 import { Request, Response } from 'express'
 import { CommandBus } from '@nestjs/cqrs'
 import { CreateUserCommand } from '@user/application/command/create-user.command'
+import { ConfigService } from '@nestjs/config'
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly logger: Logger, private readonly commandBus: CommandBus) {}
+  constructor(
+    private readonly config: ConfigService,
+    private readonly logger: Logger,
+    private readonly commandBus: CommandBus
+  ) {}
 
   @Get('kakao')
   @UseGuards(KakaoGuard)
   kakao() {
+    this.logger.debug('kakao')
     return HttpStatus.OK
   }
 
   @Get('kakao/callback')
   @UseGuards(KakaoGuard)
   kakaoCallBack(@Req() request, @Res() response: Response) {
-    this.logger.verbose(request.user, AuthController.name)
-
     const { id, name, email, birthday, gender, age, profileImg } = request.user
-
     const command = new CreateUserCommand(id, name, email, birthday, age, gender, profileImg)
-    const result = this.commandBus.execute(command)
-
-    return response.redirect('http://localhost:3000')
+    const user = this.commandBus.execute(command)
+    response.cookie('@tc-token', user)
+    return response.redirect(this.config.get<string>('WEB_FRONT_DOMAIN'))
   }
 
   @Get('naver')
@@ -35,9 +38,12 @@ export class AuthController {
 
   @Get('naver/callback')
   @UseGuards(NaverGuard)
-  naverCallBack(@Req() request: Request, @Res() response: Response) {
-    this.logger.verbose(request.user, 'naver.user.dto')
-    return response.redirect('http://localhost:3000')
+  naverCallBack(@Req() request, @Res() response: Response) {
+    const { id, name, email, birthday, gender, age, profileImg } = request.user
+    const command = new CreateUserCommand(id, name, email, birthday, age, gender, profileImg)
+    const user = this.commandBus.execute(command)
+    response.cookie('@tc-token', user)
+    return response.redirect(this.config.get<string>('WEB_FRONT_DOMAIN'))
   }
 
   @Get('google')
@@ -48,8 +54,11 @@ export class AuthController {
 
   @Get('google/callback')
   @UseGuards(GoogleGuard)
-  googleCallBack(@Req() request: Request, @Res() response: Response) {
-    this.logger.verbose(request.user)
-    return response.redirect('http://localhost:3000')
+  googleCallBack(@Req() request, @Res() response: Response) {
+    const { id, name, email, birthday, gender, age, profileImg } = request.user
+    const command = new CreateUserCommand(id, name, email, birthday, age, gender, profileImg)
+    const user = this.commandBus.execute(command)
+    response.cookie('@tc-token', user)
+    return response.redirect(this.config.get<string>('WEB_FRONT_DOMAIN'))
   }
 }

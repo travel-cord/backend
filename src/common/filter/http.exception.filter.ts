@@ -12,10 +12,10 @@ import { Request, Response } from 'express'
 export class HttpExceptionFilter implements ExceptionFilter {
   constructor(private logger: Logger) {}
 
-  catch(exception: Error, host: ArgumentsHost): any {
+  catch(exception: Error, host: ArgumentsHost) {
     const ctx = host.switchToHttp()
-    const res = ctx.getRequest<Response>()
-    const req = ctx.getResponse<Request>()
+    const res = ctx.getResponse<Response>()
+    const req = ctx.getRequest<Request>()
     const stack = exception.stack
 
     if (!(exception instanceof HttpException)) {

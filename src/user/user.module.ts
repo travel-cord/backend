@@ -7,6 +7,7 @@ import { UserFactory } from '@user/domain/user.factory'
 import { UserEntity } from '@user/infrastructure/entities/user.entity'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { CreateUserHandler } from '@user/application/command/create-user.handler'
+import { ConfigModule } from '@nestjs/config'
 
 const commandHandler = [CreateUserHandler]
 
@@ -18,7 +19,7 @@ const repositories = [
 const factories = [UserFactory]
 
 @Module({
-  imports: [CqrsModule, TypeOrmModule.forFeature([UserEntity])],
+  imports: [ConfigModule, CqrsModule, TypeOrmModule.forFeature([UserEntity])],
   controllers: [UserController],
   providers: [Logger, ...repositories, ...factories, ...commandHandler],
   exports: [...commandHandler]

@@ -19,11 +19,9 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
     const { id, name, email, birthday, gender, age, profileImg } = command
     const user = await this.userQueryRepository.selectById(id)
     if (user) {
-      throw new UnprocessableEntityException('이미 가입한 계정입니다')
+      return user
     }
-    this.logger.log('pass')
     const userEntity = this.userFactory.reconstitute(id, name, email, birthday, gender, age, profileImg)
-    this.logger.log(userEntity, 'userEntity')
-    await this.userCommandRepository.save(userEntity)
+    return await this.userCommandRepository.save(userEntity)
   }
 }

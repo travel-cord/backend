@@ -31,7 +31,6 @@ export class UserQueryRepositoryImpl implements UserQueryRepository {
   }
 
   async selectById(userId: string | number): Promise<User | null> {
-    this.logger.debug(userId)
     const userEntity = await this.userRepository.findOneBy({ id: userId })
     if (!userEntity) {
       return null
