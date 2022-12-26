@@ -1,10 +1,11 @@
-import { Logger, MiddlewareConsumer, Module, NestModule } from '@nestjs/common'
+import { CacheModule, Logger, MiddlewareConsumer, Module, NestModule } from '@nestjs/common'
 import { AuthModule } from '@auth/auth.module'
 import { UserModule } from '@user/user.module'
 import { LoggerMiddleware } from '@common/middleware/logger.middleware'
 import { DatabaseModule } from '@common/config/database.module'
 import { ConfigModule } from '@nestjs/config'
 import { ExceptionModule } from '@common/config/exception.module'
+import { RedisModule } from '@common/config/redis.module'
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { ExceptionModule } from '@common/config/exception.module'
     AuthModule,
     UserModule,
     DatabaseModule,
+    RedisModule,
     ExceptionModule
   ],
   providers: [Logger]
