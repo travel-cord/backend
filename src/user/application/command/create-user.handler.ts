@@ -1,4 +1,4 @@
-import { Inject, Injectable, Logger, UnprocessableEntityException } from '@nestjs/common'
+import { Inject, Injectable, Logger } from '@nestjs/common'
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs'
 import { CreateUserCommand } from '@user/application/command/create-user.command'
 import { UserFactory } from '@user/domain/user.factory'

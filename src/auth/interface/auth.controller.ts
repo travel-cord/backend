@@ -1,6 +1,6 @@
 import { Controller, Get, HttpStatus, Logger, Req, Res, UseGuards } from '@nestjs/common'
 import { GoogleGuard, KakaoGuard, NaverGuard } from '@auth/interface/guards'
-import { Request, Response } from 'express'
+import { Response } from 'express'
 import { CommandBus } from '@nestjs/cqrs'
 import { CreateUserCommand } from '@user/application/command/create-user.command'
 import { ConfigService } from '@nestjs/config'
